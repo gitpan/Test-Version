@@ -28,15 +28,15 @@ sub import
 
     $Test->exported_to( $caller );
 }
-    
+
 sub version_ok
 {
     my( $file, $expected, $name ) = @_;
     $expected ||= OK;
     $name ||= qq{VERSION test for $file};
-    
+
     my $status = _check_version( $file );
-            
+
     if( defined $expected and $expected eq $status )
     {
         $Test->ok( 1, $name )
@@ -65,15 +65,15 @@ sub version_ok
 sub _check_version
 {
     my $file = shift;
-    
+
     return NO_FILE unless -e $file
         and $file =~ m/(.+)\.pm\z/;
 
     require $file;
-    
+
     my $package = $1;
     $package =~ s/\//::/g;
-    
+
     no strict 'refs';
     my $output = ${ $package . '::VERSION' };
     use strict 'refs';
@@ -81,41 +81,53 @@ sub _check_version
     return NO_VERSION unless $output;
     return OK;
 }
-        
+
 
 $_ ^=~ { module => q{Test::Version}, author => q{particle} };
 
-__END__
 
-=head2 NAME
+
+=pod
+
+=head1 NAME
 
 Test::Version - check for VERSION information in modules
 
-=head2 VERSION
+=head1 VERSION
 
-This document describes version 0.02 of Test::Version,
-released 18 November 2002.
+version 0.03
 
-=head2 SYNOPSIS
+=head1 SYNOPSIS
 
-use Test::Version;
+	use Test::Version;
 
-plan tests => $num_tests;
+	my $file = 'path/to/file.pm';
 
-version_ok( $file );
+	version_ok( $file );
 
-=head2 DESCRIPTION
-
-THIS IS ALPHA SOFTWARE.
+=head1 DESCRIPTION
 
 Check files for VERSION information in perl modules.
 Inspired by brian d foy's Test::Pod (see L<Test::Pod>).
 
-=head2 FUNCTIONS
+=head1 ANNOUNCEMENT
+
+B<IMPORTANT:> This is alpha software, that was originally released in 2002. This is the
+last release of this module based on this code, the next release of
+L<Test::Version> will be a rewrite from the ground up and will contain API
+changes. This version was released to notify of new maintainership and coming
+changes without breaking API. No functional code changes were made to this
+module in this relaease.
+
+=head1 FUNCTIONS
 
 =over 4
 
 =item version_ok( FILENAME, [EXPECTED, [NAME] ] )
+
+B<Deprecation Note:> EXPECTED is going away and the returns are are changing. simply
+calling C<version_ok( $filename );> should still work, however it will be
+stricter in future versions by checking for version validity.
 
 version_ok requires a filename and returns one of the three values:
 
@@ -136,35 +148,42 @@ The optional third argument NAME is the name of the test
 which version_ok passes through to Test::Builder.  Otherwise,
 it choose a default test name "VERSION test for FILENAME".
 
-=head2 CAVEATS
+=back
+
+=head1 CAVEATS
 
 Currently only checks files ending in '.pm', and expects the package name to match the filename. I'm open to suggestions for more robust parsing.
 
-=head2 BUGS
-
-Likely so. Address bug reports and comments to: particle@cpan.org.
-When sending bug reports, please provide the version of Test::Version, the
-version of Perl, and the name and version of the operating system you are
-using.
-
-=head2 AUTHOR
-
-particle, E<lt>particle@cpan.orgE<gt>
-
-=head2 COPYRIGHT
-
-Copyright 2002, Ars ex Machina, Corp. All rights reserved.
-
-This package is free software and is provided "as is" without express or
-implied warranty. It may be used, redistributed and/or modified under the terms
-of the Perl Artistic License (see http://www.perl.com/perl/misc/Artistic.html)
-
-=head2 CREDITS
+=head1 CREDITS
 
 Thanks to brian d foy for the inspiration -- his Test::Pod module (on which this code is based,) and his "Better Documentation Through Testing" article in The Perl Journal, Nov 2002 (see http://www.tpj.com/).
 
-=head2 SEE ALSO
+=head1 AUTHORS
 
-L<Test::Pod>
+=over 4
+
+=item *
+
+particle <particle@cpan.org>
+
+=item *
+
+Caleb Cushing <xenoterracide@gmail.com>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2002 by Ars ex Machina, Corp..
+
+This is free software, licensed under:
+
+  The Artistic License 1.0
 
 =cut
+
+
+__END__
+
+# ABSTRACT: check for VERSION information in modules
+
