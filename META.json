@@ -35,7 +35,6 @@
             "Module::Extract::VERSION" : 0,
             "Test::Builder" : 0,
             "Test::More" : 0,
-            "boolean" : 0,
             "parent" : 0,
             "perl" : "5.006",
             "version" : "0.77"
@@ -49,7 +48,8 @@
             "File::Temp" : 0,
             "Scalar::Util" : 0,
             "Test::Builder::Tester" : 0,
-            "Test::More" : "0.94"
+            "Test::More" : "0.94",
+            "Test::Tester" : 0
          }
       }
    },
@@ -64,6 +64,6 @@
          "web" : "http://github.com/xenoterracide/Test-Version"
       }
    },
-   "version" : "0.04"
+   "version" : "0.05"
 }
 

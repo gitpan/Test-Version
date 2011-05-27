@@ -11,6 +11,7 @@ build_requires:
   Scalar::Util: 0
   Test::Builder::Tester: 0
   Test::More: 0.94
+  Test::Tester: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
@@ -31,11 +32,10 @@ requires:
   Module::Extract::VERSION: 0
   Test::Builder: 0
   Test::More: 0
-  boolean: 0
   parent: 0
   perl: 5.006
   version: 0.77
 resources:
   bugtracker: http://github.com/xenoterracide/Test-Version/issues
   repository: git://github.com/xenoterracide/Test-Version.git
-version: 0.04
+version: 0.05

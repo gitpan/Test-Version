@@ -3,12 +3,11 @@ use 5.006;
 use strict;
 use warnings;
 BEGIN {
-	our $VERSION = '0.04'; # VERSION
+	our $VERSION = '0.05'; # VERSION
 }
 use parent 'Exporter';
 use Test::Builder;
 use version 0.77 qw( is_lax );
-use boolean;
 use File::Find::Rule::Perl;
 use Module::Extract::VERSION;
 use Test::More;
@@ -32,16 +31,16 @@ sub version_ok {
 	$name ||= "validate VERSION in $file";
 
 	if ( not $version ) {
-		$test->ok( false , $name );
+		$test->ok( 0 , $name );
 		$test->diag( "VERSION not defined in $file" );
 		return;
 	}
 
 	if ( is_lax( $version ) ) {
-		$test->ok( true, "VERSION $version in $file is valid" );
+		$test->ok( 1, "VERSION $version in $file is valid" );
 	}
 	else {
-		$test->ok( false, $name );
+		$test->ok( 0, $name );
 		$test->diag( "VERSION in $file is not a valid version" );
 	}
 	return;
@@ -62,7 +61,7 @@ sub version_all_ok {
 	$name ||= "all modules in $dir have valid versions";
 
 	unless ( -d $dir ) {
-		$test->ok( false, $name );
+		$test->ok( 0, $name );
 		$test->diag( "$dir does not exist, or is not a directory" );
 		return;
 	}
@@ -87,7 +86,7 @@ Test::Version - Check to see that version's in modules are sane
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
