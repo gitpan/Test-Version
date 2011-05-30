@@ -2,22 +2,38 @@ NAME
     Test::Version - Check to see that version's in modules are sane
 
 VERSION
-    version 0.06
+    version 0.07
 
 SYNOPSIS
             use Test::More;
             use Test::Version;
 
             # test blib or lib by default
-            version_all_ok;
+            version_all_ok();
 
             done_testing;
 
 DESCRIPTION
     This module's goal is to be a one stop shop for checking to see that
-    your versions across your dist are sane. It currently checks to see that
-    all Perl Modules have a VERSION defined, and that it is a valid VERSION
-    by the rules of the "is_lax" function in version.
+    your versions across your dist are sane. Current feature list:
+
+    module has a version
+        Tests to insure that all modules checked have a VERSION defined, Can
+        replace Test::HasVersion
+
+    module has a valid version
+        Tests to insure that all versions are valid, according to the rules
+        of version method "is_lax". To quote:
+
+        *The lax criteria corresponds to what is currently allowed by the
+        version parser. All of the following formats are acceptable for
+        dotted-decimal formats strings:*
+
+                v1.2
+                1.2345.6
+                v1.23_4
+                1.2345
+                1.2345_01
 
 METHODS
     "version_ok( $filename, [ $name ] );"
@@ -26,6 +42,7 @@ METHODS
 
         Returns the following diagnostics
 
+                NO_FILE: $file                          $file either not defined or doesn't exist
                 NO_VERSION: $file           No version was found to exist in $file
                 NOT_VALID: $file $version   $version in $file is not "lax"
 
@@ -33,7 +50,18 @@ METHODS
         Test all modules in a directory with "version_ok". By default it
         will check "blib" or "lib" if you haven't passed it a directory.
 
-CREDITS
+BUGS AND LIMITATIONS
+    Will not test Perl 5.12 "package" version declarations because
+    Module::Extract::VERSION can't extract them yet.
+
+SEE ALSO
+    The goal is to have the functionality of all of these.
+
+    Test::HasVersion
+    Test::ConsistentVersion
+    Test::GreaterVersion
+
+ACKNOWLEDGEMENTS
     Special thanks to particle <particle@cpan.org> for the original
     "Test::Version" and letting me maintain it further.
 

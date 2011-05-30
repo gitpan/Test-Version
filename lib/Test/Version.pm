@@ -3,7 +3,7 @@ use 5.006;
 use strict;
 use warnings;
 BEGIN {
-	our $VERSION = '0.06'; # VERSION
+	our $VERSION = '0.07'; # VERSION
 }
 use parent 'Exporter';
 use Test::Builder;
@@ -49,8 +49,7 @@ sub version_ok {
 		return 2;
 	}
 
-	$test->ok( 1, $name );
-	$test->diag( "VERSION_OK: $file $version" );
+	$test->ok( 1, "VERSION_OK: $file $version" );
 	return 1;
 }
 
@@ -94,7 +93,7 @@ Test::Version - Check to see that version's in modules are sane
 
 =head1 VERSION
 
-version 0.06
+version 0.07
 
 =head1 SYNOPSIS
 
@@ -102,16 +101,38 @@ version 0.06
 	use Test::Version;
 
 	# test blib or lib by default
-	version_all_ok;
+	version_all_ok();
 
 	done_testing;
 
 =head1 DESCRIPTION
 
 This module's goal is to be a one stop shop for checking to see that your
-versions across your dist are sane. It currently checks to see that all Perl
-Modules have a VERSION defined, and that it is a valid VERSION by the rules of
-the C<is_lax> function in L<version>.
+versions across your dist are sane. Current feature list:
+
+=over
+
+=item module has a version
+
+Tests to insure that all modules checked have a VERSION defined, Can replace
+L<Test::HasVersion>
+
+=item module has a valid version
+
+Tests to insure that all versions are valid, according to the rules of
+L<version> method C<is_lax>. To quote:
+
+I<The lax criteria corresponds to what is currently allowed by the version
+parser. All of the following formats are acceptable for dotted-decimal formats
+strings:>
+
+	v1.2
+	1.2345.6
+	v1.23_4
+	1.2345
+	1.2345_01
+
+=back
 
 =head1 METHODS
 
@@ -124,6 +145,7 @@ module has a version, and that it is valid with C<is_lax>.
 
 Returns the following diagnostics
 
+	NO_FILE: $file				$file either not defined or doesn't exist
 	NO_VERSION: $file           No version was found to exist in $file
 	NOT_VALID: $file $version   $version in $file is not "lax"
 
@@ -134,7 +156,26 @@ C<blib> or C<lib> if you haven't passed it a directory.
 
 =back
 
-=head1 CREDITS
+=head1 BUGS AND LIMITATIONS
+
+Will not test Perl 5.12 C<package> version declarations because
+L<Module::Extract::VERSION> can't extract them yet.
+
+=head1 SEE ALSO
+
+The goal is to have the functionality of all of these.
+
+=over
+
+=item L<Test::HasVersion>
+
+=item L<Test::ConsistentVersion>
+
+=item L<Test::GreaterVersion>
+
+=back
+
+=head1 ACKNOWLEDGEMENTS
 
 Special thanks to particle <particle@cpan.org> for the original
 C<Test::Version> and letting me maintain it further.

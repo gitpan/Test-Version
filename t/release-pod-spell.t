@@ -24,3 +24,8 @@ all_pod_files_spelling_ok('lib');
 __DATA__
 Cushing
 SubmittingPatches
+ACKNOWLEDGEMENTS
+Caleb
+Cushing
+Mike
+Doherty
