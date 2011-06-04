@@ -3,7 +3,7 @@ use 5.006;
 use strict;
 use warnings;
 BEGIN {
-	our $VERSION = '0.07'; # VERSION
+	our $VERSION = '0.08'; # VERSION
 }
 use parent 'Exporter';
 use Test::Builder;
@@ -28,7 +28,13 @@ sub version_ok {
 
 	$name ||= "check version in $file";
 
-	unless ( $file and -e $file ) {
+	unless ( $file ) {
+		$test->ok( 0, $name );
+		$test->diag( "FILE_NOT_DEFINED" );
+		return 5;
+	}
+
+	unless ( -e $file ) {
 		$test->ok( 0, $name );
 		$test->diag( "NO_FILE: $file" );
 		return 4;
@@ -93,12 +99,12 @@ Test::Version - Check to see that version's in modules are sane
 
 =head1 VERSION
 
-version 0.07
+version 0.08
 
 =head1 SYNOPSIS
 
 	use Test::More;
-	use Test::Version;
+	use Test::Version 0.04;
 
 	# test blib or lib by default
 	version_all_ok();
@@ -108,7 +114,9 @@ version 0.07
 =head1 DESCRIPTION
 
 This module's goal is to be a one stop shop for checking to see that your
-versions across your dist are sane. Current feature list:
+versions across your dist are sane. Please ensure that you use version C<0.04>
+or later only, as earlier versions are old code and may not work correctly.
+Current feature list:
 
 =over
 
@@ -145,7 +153,8 @@ module has a version, and that it is valid with C<is_lax>.
 
 Returns the following diagnostics
 
-	NO_FILE: $file				$file either not defined or doesn't exist
+	FILE_NOT_DEFINED			no $file parameter passed to version_ok
+	NO_FILE: $file				$file doesn't exist
 	NO_VERSION: $file           No version was found to exist in $file
 	NOT_VALID: $file $version   $version in $file is not "lax"
 
