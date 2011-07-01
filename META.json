@@ -1,11 +1,10 @@
 {
    "abstract" : "Check to see that version's in modules are sane",
    "author" : [
-      "Caleb Cushing <xenoterracide@gmail.com>",
-      "Mike Doherty <doherty@cs.dal.ca>"
+      "Caleb Cushing <xenoterracide@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200007, CPAN::Meta::Converter version 2.110930",
+   "generated_by" : "Dist::Zilla version 4.200008, CPAN::Meta::Converter version 2.110930",
    "license" : [
       "artistic_2"
    ],
@@ -63,6 +62,6 @@
          "web" : "http://github.com/xenoterracide/Test-Version"
       }
    },
-   "version" : "0.11"
+   "version" : "1.0.0"
 }
 

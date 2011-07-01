@@ -3,7 +3,7 @@ use 5.006;
 use strict;
 use warnings;
 BEGIN {
-	our $VERSION = '0.11'; # VERSION
+	our $VERSION = '1.0.0'; # VERSION
 }
 use parent 'Exporter';
 use Test::Builder;
@@ -99,7 +99,7 @@ Test::Version - Check to see that version's in modules are sane
 
 =head1 VERSION
 
-version 0.11
+version 1.0.0
 
 =head1 SYNOPSIS
 
@@ -179,22 +179,14 @@ The goal is to have the functionality of all of these.
 
 =head1 ACKNOWLEDGEMENTS
 
-Special thanks to particle <particle@cpan.org> for the original
-C<Test::Version> and letting me maintain it further.
+Special thanks to particle C<particle at cpan dot org> for the original
+C<Test::Version> and letting me maintain it further. Thanks to Mike Doherty
+C<doherty at cs dot dal dot ca>, and Michael G. Schwern C<schwern at pobox dot
+com> for their patches.
 
-=head1 AUTHORS
-
-=over 4
-
-=item *
+=head1 AUTHOR
 
 Caleb Cushing <xenoterracide@gmail.com>
-
-=item *
-
-Mike Doherty <doherty@cs.dal.ca>
-
-=back
 
 =head1 COPYRIGHT AND LICENSE
 
