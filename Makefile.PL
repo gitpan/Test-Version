@@ -28,6 +28,7 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'artistic_2',
   'NAME' => 'Test::Version',
   'PREREQ_PM' => {
+    'Env' => '0',
     'Exporter' => '0',
     'File::Find::Rule::Perl' => '0',
     'Module::Extract::VERSION' => '0',
@@ -36,7 +37,7 @@ my %WriteMakefileArgs = (
     'parent' => '0',
     'version' => '0.86'
   },
-  'VERSION' => '1.0.0',
+  'VERSION' => 'v1.1.0',
   'test' => {
     'TESTS' => 't/*.t'
   }

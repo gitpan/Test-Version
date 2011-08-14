@@ -13,7 +13,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200008, CPAN::Meta::Converter version 2.110930'
+generated_by: 'Dist::Zilla version 4.200015, CPAN::Meta::Converter version 2.112150'
 license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -25,6 +25,7 @@ no_index:
   file:
     - perlcritic.rc
 requires:
+  Env: 0
   Exporter: 0
   File::Find::Rule::Perl: 0
   Module::Extract::VERSION: 0
@@ -34,6 +35,7 @@ requires:
   perl: 5.006
   version: 0.86
 resources:
-  bugtracker: http://github.com/xenoterracide/Test-Version/issues
+  bugtracker: https://github.com/xenoterracide/Test-Version/issues
+  homepage: http://search.cpan.org/dist/Test-Version/
   repository: git://github.com/xenoterracide/Test-Version.git
-version: 1.0.0
+version: v1.1.0

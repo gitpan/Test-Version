@@ -2,7 +2,7 @@ NAME
     Test::Version - Check to see that version's in modules are sane
 
 VERSION
-    version 1.0.0
+    version v1.1.0
 
 SYNOPSIS
             use Test::More;
@@ -37,6 +37,16 @@ DESCRIPTION
                 1.2345
                 1.2345_01
 
+        *If you want to limit yourself to a much more narrow definition of
+        what a version string constitutes, is_strict() is limited to version
+        strings like the following list:*
+
+                v1.234.5
+                2.3456
+
+        you can cause your tests to fail if not strict by setting STRICTNESS
+        to 2
+
 METHODS
     "version_ok( $filename, [ $name ] );"
         Test a single ".pm" file by passing a path to the function. Checks
@@ -46,7 +56,30 @@ METHODS
         Test all modules in a directory with "version_ok". By default it
         will check "blib" or "lib" if you haven't passed it a directory.
 
-BUGS AND LIMITATIONS
+CONFIGURATION AND ENVIRONMENT
+  "STRICTNESS"
+    this allows you to set how strict you want the version validity checking
+    to be. you can set either the package variable
+    "$Test::Version::STRICTNESS;" or the environment variable
+    "TEST_VERSION_STRICTNESS".
+
+    *   "$Test::Version::STRICTNESS = 0; # default"
+
+        This will not disable strict checking, but will simply result in a
+        passing test even if the "is_strict" fails.
+
+    *   "$Test::Version::STRICTNESS = 1;"
+
+        This will cause a diagnostic to print if your "VERSION" is not
+        strict. The test will still continue to pass. *This will be the
+        default in 1.4.0.*
+
+    *   "$Test::Version::STRICTNESS = 2;"
+
+        This will cause the test to fail if your "VERSION" is not
+        "is_strict".
+
+LIMITATIONS
     Will not test Perl 5.12 "package" version declarations because
     Module::Extract::VERSION can't extract them yet.
 
@@ -58,10 +91,17 @@ SEE ALSO
     Test::GreaterVersion
 
 ACKNOWLEDGEMENTS
-    Special thanks to particle "particle at cpan dot org" for the original
+    Special thanks to particle "<particle at cpan dot org"> for the original
     "Test::Version" and letting me maintain it further. Thanks to Mike
-    Doherty "doherty at cs dot dal dot ca", and Michael G. Schwern "schwern
-    at pobox dot com" for their patches.
+    Doherty "<doherty at cs dot dal dot ca">, and Michael G. Schwern
+    "<schwern at pobox dot com"> for their patches.
+
+BUGS
+    Please report any bugs or feature requests on the bugtracker website
+    https://github.com/xenoterracide/Test-Version/issues
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
 
 AUTHOR
     Caleb Cushing <xenoterracide@gmail.com>
