@@ -2,11 +2,14 @@ NAME
     Test::Version - Check to see that version's in modules are sane
 
 VERSION
-    version v1.1.0
+    version 1.001001
 
 SYNOPSIS
             use Test::More;
-            use Test::Version 0.04;
+            use Test::Version 1.001001 qw( version_ok ), {
+                            is_strict   => 0,
+                            has_version => 1,
+                    };
 
             # test blib or lib by default
             version_all_ok();
@@ -44,40 +47,36 @@ DESCRIPTION
                 v1.234.5
                 2.3456
 
-        you can cause your tests to fail if not strict by setting STRICTNESS
+        you can cause your tests to fail if not strict by setting is_strict
         to 2
 
-METHODS
-    "version_ok( $filename, [ $name ] );"
-        Test a single ".pm" file by passing a path to the function. Checks
-        if the module has a version, and that it is valid with "is_lax".
+FUNCTIONS
+  version_ok
+            version_ok( $filename, [ $name ] );
 
-    "version_all_ok( [ $directory, [ $name ]] );"
-        Test all modules in a directory with "version_ok". By default it
-        will check "blib" or "lib" if you haven't passed it a directory.
+    Test a single ".pm" file by passing a path to the function. Checks if
+    the module has a version, and that it is valid with "is_lax".
+
+  version_all_ok
+            version_all_ok( [ $directory, [ $name ]] );
+
+    Test all modules in a directory with "version_ok". By default it will
+    check "blib" or "lib" if you haven't passed it a directory.
 
 CONFIGURATION AND ENVIRONMENT
-  "STRICTNESS"
-    this allows you to set how strict you want the version validity checking
-    to be. you can set either the package variable
-    "$Test::Version::STRICTNESS;" or the environment variable
-    "TEST_VERSION_STRICTNESS".
+  has_version
+            use Test::Version qw( version_all_ok ), { has_version => 0 };
 
-    *   "$Test::Version::STRICTNESS = 0; # default"
+    Allows disabling whether a module has to have a version. If set to 0
+    version tests will be skipped in any module where no version is found.
 
-        This will not disable strict checking, but will simply result in a
-        passing test even if the "is_strict" fails.
+    really doesn't make sense to use with just version_ok
 
-    *   "$Test::Version::STRICTNESS = 1;"
+  is_strict
+            use Test::Version { is_strict => 1 };
 
-        This will cause a diagnostic to print if your "VERSION" is not
-        strict. The test will still continue to pass. *This will be the
-        default in 1.4.0.*
-
-    *   "$Test::Version::STRICTNESS = 2;"
-
-        This will cause the test to fail if your "VERSION" is not
-        "is_strict".
+    this allows enabling of versions "is_strict" checks to ensure that your
+    version is strict.
 
 LIMITATIONS
     Will not test Perl 5.12 "package" version declarations because
@@ -98,7 +97,7 @@ ACKNOWLEDGEMENTS
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website
-    https://github.com/xenoterracide/Test-Version/issues
+    https://github.com/gitpan/Test-Version/issues
 
     When submitting a bug or request, please include a test-file or a patch
     to an existing test-file that illustrates the bug or desired feature.

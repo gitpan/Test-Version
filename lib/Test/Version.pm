@@ -2,11 +2,11 @@ package Test::Version;
 use 5.006;
 use strict;
 use warnings;
-BEGIN {
-	our $VERSION = 'v1.1.0'; # VERSION
-}
+use Carp;
+
+our $VERSION = '1.001001'; # VERSION
+
 use parent 'Exporter';
-use Env qw(TEST_VERSION_STRICTNESS);
 use Test::Builder;
 use version 0.86 qw( is_lax is_strict );
 use File::Find::Rule::Perl;
@@ -16,9 +16,29 @@ use Test::More;
 our @EXPORT = qw( version_all_ok ); ## no critic (Modules::ProhibitAutomaticExportation)
 our @EXPORT_OK = qw( version_ok );
 
-our $STRICTNESS = $TEST_VERSION_STRICTNESS ? $TEST_VERSION_STRICTNESS : 0;
+my $cfg;
 
-my $test = Test::Builder->new;
+sub import { ## no critic qw( Subroutines::RequireArgUnpacking Subroutines::RequireFinalReturn )
+	my @exports;
+	foreach my $param ( @_ ) {
+		unless ( ref( $param ) eq 'HASH' ) {
+			push @exports, $param;
+		} else {
+			$cfg = $param
+		}
+	}
+	__PACKAGE__->export_to_level( 1, @exports );
+}
+
+$cfg->{is_strict}
+	= $cfg->{is_strict} ? $cfg->{is_strict}
+	:                     0
+	;
+
+$cfg->{has_version}
+	= $cfg->{has_version} ? $cfg->{has_version}
+	:                       1
+	;
 
 sub _get_version {
 	my $pm = shift;
@@ -31,20 +51,23 @@ sub version_ok {
 	$file ||= '';
 	$name ||= "check version in '$file'";
 
-	unless ( $file ) {
-		$test->ok( 0, $name );
-		$test->diag( "No file passed to version_ok()." );
-		return 0;
-	}
+	croak 'No file passed to version_ok().' unless $file;
 
-	unless ( -e $file ) {
-		$test->ok( 0, $name );
-		$test->diag( "'$file' doesn't exist." );
-		return 0;
-	}
+	croak "'$file' doesn't exist." unless -e $file;
 
 	my $version = _get_version( $file );
 
+	my $test = Test::Builder->new;
+
+	if ( not $version and not $cfg->{has_version} ) {
+		$test->skip( 'No version was found in "'
+			. $file
+			. '" and has_version is false'
+			)
+			;
+
+		return 1;
+	}
 
 	unless ( $version ) {
 		$test->ok( 0 , $name );
@@ -58,19 +81,12 @@ sub version_ok {
 		return 0;
 	}
 
-	unless ( is_strict( $version ) ) {
-		if    ( $STRICTNESS == 0 ) {
-			$test->ok( 1, $name );
-		}
-		elsif ( $STRICTNESS == 1 ) {
-			$test->ok( 1, $name );
-			$test->diag( "The version '$version' found in '$file' is not strict." );
-		}
-		elsif ( $STRICTNESS == 2 ) {
+	if ( $cfg->{is_strict} ) {
+		unless ( is_strict( $version ) ) {
 			$test->ok( 0, $name );
 			$test->diag( "The version '$version' found in '$file' is not strict." );
+			return 0;
 		}
-		return 1;
 	}
 
 	$test->ok( 1, $name );
@@ -86,16 +102,13 @@ sub version_all_ok {
 		:                'lib'
 		;
 
+	croak $dir . 'does not exist, or is not a directory' unless -d $dir;
+
 	# Report failure location correctly - GH #1
 	local $Test::Builder::Level = $Test::Builder::Level + 1; ## no critic (Variables::ProhibitPackageVars)
 
 	$name ||= "all modules in $dir have valid versions";
 
-	unless ( -d $dir ) {
-		$test->ok( 0, $name );
-		$test->diag( "$dir does not exist, or is not a directory" );
-		return;
-	}
 	my @files = File::Find::Rule->perl_module->in( $dir );
 
 	foreach my $file ( @files ) {
@@ -117,12 +130,15 @@ Test::Version - Check to see that version's in modules are sane
 
 =head1 VERSION
 
-version v1.1.0
+version 1.001001
 
 =head1 SYNOPSIS
 
 	use Test::More;
-	use Test::Version 0.04;
+	use Test::Version 1.001001 qw( version_ok ), {
+			is_strict   => 0,
+			has_version => 1,
+		};
 
 	# test blib or lib by default
 	version_all_ok();
@@ -159,59 +175,50 @@ strings:>
 	1.2345_01
 
 I<If you want to limit yourself to a much more narrow definition of what a
-version string constitutes, is_strict() is limited to version strings like the
-following list:>
+version string constitutes, is_strict() is limited to version strings like
+the following list:>
 
 	v1.234.5
 	2.3456
 
-you can cause your tests to fail if not strict by setting L<STRICTNESS> to
+you can cause your tests to fail if not strict by setting L<is_strict> to
 C<2>
 
 =back
 
-=head1 METHODS
+=head1 FUNCTIONS
 
-=over
+=head2 version_ok
 
-=item C<version_ok( $filename, [ $name ] );>
+	version_ok( $filename, [ $name ] );
 
 Test a single C<.pm> file by passing a path to the function. Checks if the
 module has a version, and that it is valid with C<is_lax>.
 
-=item C<version_all_ok( [ $directory, [ $name ]] );>
+=head2 version_all_ok
+
+	version_all_ok( [ $directory, [ $name ]] );
 
 Test all modules in a directory with C<version_ok>. By default it will check
 C<blib> or C<lib> if you haven't passed it a directory.
 
-=back
-
 =head1 CONFIGURATION AND ENVIRONMENT
 
-=head2 C<STRICTNESS>
+=head2 has_version
 
-this allows you to set how strict you want the version validity checking to
-be. you can set either the package variable C<$Test::Version::STRICTNESS;>
-or the environment variable C<TEST_VERSION_STRICTNESS>.
+	use Test::Version qw( version_all_ok ), { has_version => 0 };
 
-=over
+Allows disabling whether a module has to have a version. If set to 0
+version tests will be skipped in any module where no version is found.
 
-=item * C<$Test::Version::STRICTNESS = 0; # default>
+really doesn't make sense to use with just L<version_ok>
 
-This will not disable strict checking, but will simply result in a
-passing test even if the C<is_strict> fails.
+=head2 is_strict
 
-=item * C<$Test::Version::STRICTNESS = 1;>
+	use Test::Version { is_strict => 1 };
 
-This will cause a diagnostic to print if your C<VERSION> is not
-strict. The test will still continue to pass. I<This will be the default in
-1.4.0.>
-
-=item * C<$Test::Version::STRICTNESS = 2;>
-
-This will cause the test to fail if your C<VERSION> is not C<is_strict>.
-
-=back
+this allows enabling of L<version>s C<is_strict> checks to ensure that your
+version is strict.
 
 =head1 LIMITATIONS
 
@@ -242,7 +249,7 @@ com>> for their patches.
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
-https://github.com/xenoterracide/Test-Version/issues
+https://github.com/gitpan/Test-Version/issues
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired

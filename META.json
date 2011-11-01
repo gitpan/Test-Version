@@ -4,7 +4,7 @@
       "Caleb Cushing <xenoterracide@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200015, CPAN::Meta::Converter version 2.112150",
+   "generated_by" : "Dist::Zilla version 4.300003, CPAN::Meta::Converter version 2.112621",
    "license" : [
       "artistic_2"
    ],
@@ -29,7 +29,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Env" : 0,
+            "Carp" : 0,
             "Exporter" : 0,
             "File::Find::Rule::Perl" : 0,
             "Module::Extract::VERSION" : 0,
@@ -37,16 +37,18 @@
             "Test::More" : 0,
             "parent" : 0,
             "perl" : "5.006",
-            "version" : "0.86"
+            "strict" : 0,
+            "version" : "0.86",
+            "warnings" : 0
          }
       },
       "test" : {
          "requires" : {
-            "Carp" : 0,
             "English" : 0,
             "File::Find" : 0,
             "File::Temp" : 0,
             "Scalar::Util" : 0,
+            "Test::Exception" : 0,
             "Test::More" : "0.94",
             "Test::Tester" : 0
          }
@@ -55,15 +57,15 @@
    "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/xenoterracide/Test-Version/issues"
+         "web" : "https://github.com/gitpan/Test-Version/issues"
       },
       "homepage" : "http://search.cpan.org/dist/Test-Version/",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/xenoterracide/Test-Version.git",
-         "web" : "https://github.com/xenoterracide/Test-Version"
+         "url" : "git://github.com/gitpan/Test-Version.git",
+         "web" : "https://github.com/gitpan/Test-Version"
       }
    },
-   "version" : "v1.1.0"
+   "version" : "1.001001"
 }
 
