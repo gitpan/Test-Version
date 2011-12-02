@@ -31,7 +31,7 @@ my %WriteMakefileArgs = (
     "Carp" => 0,
     "Exporter" => 0,
     "File::Find::Rule::Perl" => 0,
-    "Module::Extract::VERSION" => 0,
+    "Module::Metadata" => 0,
     "Test::Builder" => 0,
     "Test::More" => 0,
     "parent" => 0,
@@ -39,7 +39,7 @@ my %WriteMakefileArgs = (
     "version" => "0.86",
     "warnings" => 0
   },
-  "VERSION" => "1.001002",
+  "VERSION" => "1.001003",
   "test" => {
     "TESTS" => "t/*.t"
   }

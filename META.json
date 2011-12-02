@@ -32,7 +32,7 @@
             "Carp" : 0,
             "Exporter" : 0,
             "File::Find::Rule::Perl" : 0,
-            "Module::Extract::VERSION" : 0,
+            "Module::Metadata" : 0,
             "Test::Builder" : 0,
             "Test::More" : 0,
             "parent" : 0,
@@ -66,6 +66,6 @@
          "web" : "https://github.com/gitpan/Test-Version"
       }
    },
-   "version" : "1.001002"
+   "version" : "1.001003"
 }
 

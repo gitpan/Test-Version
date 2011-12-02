@@ -28,7 +28,7 @@ requires:
   Carp: 0
   Exporter: 0
   File::Find::Rule::Perl: 0
-  Module::Extract::VERSION: 0
+  Module::Metadata: 0
   Test::Builder: 0
   Test::More: 0
   parent: 0
@@ -40,4 +40,4 @@ resources:
   bugtracker: https://github.com/gitpan/Test-Version/issues
   homepage: http://search.cpan.org/dist/Test-Version/
   repository: git://github.com/gitpan/Test-Version.git
-version: 1.001002
+version: 1.001003
