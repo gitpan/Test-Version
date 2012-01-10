@@ -18,6 +18,7 @@ my %WriteMakefileArgs = (
     "Scalar::Util" => 0,
     "Test::Exception" => 0,
     "Test::More" => "0.94",
+    "Test::Requires" => 0,
     "Test::Tester" => 0
   },
   "CONFIGURE_REQUIRES" => {
@@ -39,7 +40,7 @@ my %WriteMakefileArgs = (
     "version" => "0.86",
     "warnings" => 0
   },
-  "VERSION" => "1.001003",
+  "VERSION" => "1.002000",
   "test" => {
     "TESTS" => "t/*.t"
   }

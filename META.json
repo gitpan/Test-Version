@@ -4,7 +4,7 @@
       "Caleb Cushing <xenoterracide@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300003, CPAN::Meta::Converter version 2.112621",
+   "generated_by" : "Dist::Zilla version 4.300006, CPAN::Meta::Converter version 2.113640",
    "license" : [
       "artistic_2"
    ],
@@ -50,11 +50,12 @@
             "Scalar::Util" : 0,
             "Test::Exception" : 0,
             "Test::More" : "0.94",
+            "Test::Requires" : 0,
             "Test::Tester" : 0
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/gitpan/Test-Version/issues"
@@ -66,6 +67,6 @@
          "web" : "https://github.com/gitpan/Test-Version"
       }
    },
-   "version" : "1.001003"
+   "version" : "1.002000"
 }
 

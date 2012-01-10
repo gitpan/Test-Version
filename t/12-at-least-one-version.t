@@ -8,11 +8,11 @@ use Test::Version qw( version_all_ok ), { has_version => 0 };
 
 my ( $premature, @results ) = run_tests(
 	sub {
-		version_all_ok('corpus');
+		version_all_ok('corpus/noversion');
 	}
 );
 
-is( scalar(@results), 5, 'correct number of results' );
+is( scalar(@results), 2, 'correct number of results' );
 
 my @oks;
 
@@ -22,7 +22,7 @@ foreach my $result ( @results ) {
 
 my $sorted = [ sort @oks ];
 
-my $expected = [ ( 0, 1, 1, 1, 1 ) ];
+my $expected = [ ( 0, 1 ) ];
 
 note( 'unsorted oks: ', @oks );
 
