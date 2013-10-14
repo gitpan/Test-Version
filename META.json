@@ -4,7 +4,7 @@
       "Caleb Cushing <xenoterracide@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300009, CPAN::Meta::Converter version 2.120630",
+   "generated_by" : "Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.132830",
    "license" : [
       "artistic_2"
    ],
@@ -27,6 +27,16 @@
             "ExtUtils::MakeMaker" : "6.30"
          }
       },
+      "develop" : {
+         "requires" : {
+            "Pod::Coverage::TrustPod" : "0",
+            "Test::CPAN::Changes" : "0.19",
+            "Test::CPAN::Meta" : "0",
+            "Test::Pod" : "1.41",
+            "Test::Pod::Coverage" : "1.08",
+            "version" : "0.9901"
+         }
+      },
       "runtime" : {
          "requires" : {
             "Carp" : "0",
@@ -44,13 +54,11 @@
       },
       "test" : {
          "requires" : {
-            "English" : "0",
-            "File::Find" : "0",
-            "File::Temp" : "0",
-            "Scalar::Util" : "0",
+            "File::Spec" : "0",
+            "IO::Handle" : "0",
+            "IPC::Open3" : "0",
             "Test::Exception" : "0",
-            "Test::More" : "0.94",
-            "Test::Requires" : "0",
+            "Test::More" : "0.88",
             "Test::Tester" : "0"
          }
       }
@@ -67,6 +75,11 @@
          "web" : "https://github.com/xenoterracide/Test-Version"
       }
    },
-   "version" : "1.002001"
+   "version" : "1.002002",
+   "x_contributors" : [
+      "Michael G. Schwern <schwern@pobox.com>",
+      "Mike Doherty <doherty@cs.dal.ca>",
+      "particle <particle@cpan.org>"
+   ]
 }
 

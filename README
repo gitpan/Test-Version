@@ -2,7 +2,7 @@ NAME
     Test::Version - Check to see that version's in modules are sane
 
 VERSION
-    version 1.002001
+    version 1.002002
 
 SYNOPSIS
             use Test::More;
@@ -78,22 +78,12 @@ CONFIGURATION AND ENVIRONMENT
     this allows enabling of versions "is_strict" checks to ensure that your
     version is strict.
 
-LIMITATIONS
-    Will not test Perl 5.12 "package" version declarations because
-    Module::Extract::VERSION can't extract them yet.
-
 SEE ALSO
     The goal is to have the functionality of all of these.
 
     Test::HasVersion
     Test::ConsistentVersion
     Test::GreaterVersion
-
-ACKNOWLEDGEMENTS
-    Special thanks to particle "<particle at cpan dot org"> for the original
-    "Test::Version" and letting me maintain it further. Thanks to Mike
-    Doherty "<doherty at cs dot dal dot ca">, and Michael G. Schwern
-    "<schwern at pobox dot com"> for their patches.
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website
@@ -102,11 +92,18 @@ BUGS
     When submitting a bug or request, please include a test-file or a patch
     to an existing test-file that illustrates the bug or desired feature.
 
+CONTRIBUTORS
+    *   Michael G. Schwern <schwern@pobox.com>
+
+    *   Mike Doherty <doherty@cs.dal.ca>
+
+    *   particle <particle@cpan.org>
+
 AUTHOR
     Caleb Cushing <xenoterracide@gmail.com>
 
 COPYRIGHT AND LICENSE
-    This software is Copyright (c) 2011 by Caleb Cushing.
+    This software is Copyright (c) 2013 by Caleb Cushing.
 
     This is free software, licensed under:
 

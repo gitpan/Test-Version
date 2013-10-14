@@ -1,3 +1,4 @@
+CONTRIBUTING
 Changes
 LICENSE
 MANIFEST
@@ -9,11 +10,10 @@ corpus/fail/FooBarBaz.pm
 corpus/not_strict/NotStrict.pm
 corpus/noversion/FooBar.pm
 corpus/pass/Foo.pm
-docs/SubmittingPatches.pod
 lib/Test/Version.pm
 perlcritic.rc
 t/00-compile.t
-t/000-report-versions.t
+t/000-report-versions-tiny.t
 t/01-pass.t
 t/02-fail.t
 t/03-noversion.t
@@ -29,7 +29,6 @@ t/author-test-eol.t
 t/release-cpan-changes.t
 t/release-dist-manifest.t
 t/release-distmeta.t
-t/release-kwalitee.t
 t/release-meta-json.t
 t/release-minimum-version.t
 t/release-mojibake.t
