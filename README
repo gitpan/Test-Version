@@ -2,11 +2,11 @@ NAME
     Test::Version - Check to see that version's in modules are sane
 
 VERSION
-    version 1.002002
+    version 1.002003
 
 SYNOPSIS
             use Test::More;
-            use Test::Version 1.001001 qw( version_ok ), {
+            use Test::Version 1.001001 qw( version_all_ok ), {
                             is_strict   => 0,
                             has_version => 1,
                     };
@@ -87,12 +87,14 @@ SEE ALSO
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website
-    https://github.com/xenoterracide/Test-Version/issues
+    https://github.com/xenoterracide/test-version/issues
 
     When submitting a bug or request, please include a test-file or a patch
     to an existing test-file that illustrates the bug or desired feature.
 
 CONTRIBUTORS
+    *   Graham Ollis <perl@wdlabs.com>
+
     *   Michael G. Schwern <schwern@pobox.com>
 
     *   Mike Doherty <doherty@cs.dal.ca>

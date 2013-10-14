@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = '1.002002'; # VERSION
+our $VERSION = '1.002003'; # VERSION
 
 use parent 'Exporter';
 use Test::Builder;
@@ -149,12 +149,12 @@ Test::Version - Check to see that version's in modules are sane
 
 =head1 VERSION
 
-version 1.002002
+version 1.002003
 
 =head1 SYNOPSIS
 
 	use Test::More;
-	use Test::Version 1.001001 qw( version_ok ), {
+	use Test::Version 1.001001 qw( version_all_ok ), {
 			is_strict   => 0,
 			has_version => 1,
 		};
@@ -256,7 +256,7 @@ The goal is to have the functionality of all of these.
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
-https://github.com/xenoterracide/Test-Version/issues
+https://github.com/xenoterracide/test-version/issues
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
@@ -265,6 +265,10 @@ feature.
 =head1 CONTRIBUTORS
 
 =over 4
+
+=item *
+
+Graham Ollis <perl@wdlabs.com>
 
 =item *
 

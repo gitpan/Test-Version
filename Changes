@@ -1,5 +1,9 @@
 Revision history for Test-Version
 
+1.002003  2013-10-14
+	- fix misgithap 
+	- more dist.ini updates
+
 1.002002  2013-10-14
 	- fix synopsis GH #6 ( plicease )
 	- change Dist::Zilla Plugins
