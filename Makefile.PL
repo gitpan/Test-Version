@@ -25,7 +25,7 @@ my %WriteMakefileArgs = (
     "File::Find::Rule::Perl" => 0,
     "Module::Metadata" => 0,
     "Test::Builder" => 0,
-    "Test::More" => 0,
+    "Test::More" => "0.88",
     "parent" => 0,
     "strict" => 0,
     "version" => "0.86",
@@ -39,37 +39,36 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.88",
     "Test::Tester" => 0
   },
-  "VERSION" => "1.002003",
+  "VERSION" => "1.002004",
   "test" => {
     "TESTS" => "t/*.t"
   }
 );
 
 
-unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
-  my $tr = delete $WriteMakefileArgs{TEST_REQUIRES};
-  my $br = $WriteMakefileArgs{BUILD_REQUIRES};
-  for my $mod ( keys %$tr ) {
-    if ( exists $br->{$mod} ) {
-      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
-    }
-    else {
-      $br->{$mod} = $tr->{$mod};
-    }
-  }
-}
+my %FallbackPrereqs = (
+  "Carp" => 0,
+  "Exporter" => 0,
+  "File::Find::Rule::Perl" => 0,
+  "File::Spec" => 0,
+  "IO::Handle" => 0,
+  "IPC::Open3" => 0,
+  "Module::Metadata" => 0,
+  "Test::Builder" => 0,
+  "Test::Exception" => 0,
+  "Test::More" => "0.88",
+  "Test::Tester" => 0,
+  "parent" => 0,
+  "strict" => 0,
+  "version" => "0.86",
+  "warnings" => 0
+);
 
-unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
-  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
-  my $pp = $WriteMakefileArgs{PREREQ_PM};
-  for my $mod ( keys %$br ) {
-    if ( exists $pp->{$mod} ) {
-      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
-    }
-    else {
-      $pp->{$mod} = $br->{$mod};
-    }
-  }
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  delete $WriteMakefileArgs{TEST_REQUIRES};
+  delete $WriteMakefileArgs{BUILD_REQUIRES};
+  $WriteMakefileArgs{PREREQ_PM} = \%FallbackPrereqs;
 }
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}

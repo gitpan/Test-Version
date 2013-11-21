@@ -1,11 +1,15 @@
 Revision history for Test-Version
 
+1.002004  2013-11-21
+	- fix bugs in argument handling
+	- fix whitespace
+
 1.002003  2013-10-14
-	- fix misgithap 
+	- fix misgithap
 	- more dist.ini updates
 
 1.002002  2013-10-14
-	- fix synopsis GH #6 ( plicease )
+	- fix synopsis GH #6, #7 ( plicease )
 	- change Dist::Zilla Plugins
 	- remove old documentation that no longer applies
 

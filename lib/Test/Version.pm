@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = '1.002003'; # VERSION
+our $VERSION = '1.002004'; # VERSION
 
 use parent 'Exporter';
 use Test::Builder;
@@ -27,18 +27,19 @@ sub import { ## no critic qw( Subroutines::RequireArgUnpacking Subroutines::Requ
 			$cfg = $param
 		}
 	}
+
+	$cfg->{is_strict}
+		= defined $cfg->{is_strict}           ? $cfg->{is_strict}
+		:                                       0
+		;
+
+	$cfg->{has_version}
+		= defined $cfg->{has_version}         ? $cfg->{has_version}
+		:                                       1
+		;
+
 	__PACKAGE__->export_to_level( 1, @exports );
 }
-
-$cfg->{is_strict}
-	= $cfg->{is_strict} ? $cfg->{is_strict}
-	:                     0
-	;
-
-$cfg->{has_version}
-	= $cfg->{has_version} ? $cfg->{has_version}
-	:                       1
-	;
 
 my $version_counter = 0;
 
@@ -108,7 +109,7 @@ sub version_all_ok {
 		:                'lib'
 		;
 
-	croak $dir . 'does not exist, or is not a directory' unless -d $dir;
+	croak $dir . ' does not exist, or is not a directory' unless -d $dir;
 
 	# Report failure location correctly - GH #1
 	local $Test::Builder::Level = $Test::Builder::Level + 1; ## no critic (Variables::ProhibitPackageVars)
@@ -143,13 +144,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Test::Version - Check to see that version's in modules are sane
 
 =head1 VERSION
 
-version 1.002003
+version 1.002004
 
 =head1 SYNOPSIS
 
