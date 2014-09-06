@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = '1.003000'; # TRIAL VERSION
+our $VERSION = '1.003001'; # VERSION
 
 use parent 'Exporter';
 use Test::Builder;
@@ -42,7 +42,7 @@ sub import { ## no critic qw( Subroutines::RequireArgUnpacking Subroutines::Requ
 	my $rec = version->parse( '1.000020'  );
 	if ( $mmv >= $rec && ! defined $cfg->{ignore_unindexable} ) {
 		$cfg->{ignore_unindexable} = 1;
-   }
+	}
 
 	__PACKAGE__->export_to_level( 1, @exports );
 }
@@ -50,19 +50,6 @@ sub import { ## no critic qw( Subroutines::RequireArgUnpacking Subroutines::Requ
 my $version_counter = 0;
 
 my $test = Test::Builder->new;
-
-sub _get_version {
-	my $pm = shift;
-
-	my $info = Module::Metadata->new_from_file( $pm );
-
-	if ( $cfg->{ignore_unindexable} ) {
-		$test->skip( "$pm not indexable" );
-		return if ! $info->is_indexable;
-	}
-
-	return $info->version;
-}
 
 sub version_ok {
 	my ( $file, $name ) = @_;
@@ -73,7 +60,12 @@ sub version_ok {
 
 	croak "'$file' doesn't exist." unless -e $file;
 
-	my $version = _get_version( $file );
+	my $info = Module::Metadata->new_from_file( $file );
+	if ( $cfg->{ignore_unindexable} ) {
+		$test->skip( "$file not indexable" );
+		return 0 if ! $info->is_indexable;
+	}
+	my $version = $info->version;
 
 	if ( not $version and not $cfg->{has_version} ) {
 		$test->skip( 'No version was found in "'
@@ -163,7 +155,7 @@ Test::Version - Check to see that version's in modules are sane
 
 =head1 VERSION
 
-version 1.003000
+version 1.003001
 
 =head1 SYNOPSIS
 
