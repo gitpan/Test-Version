@@ -1,5 +1,8 @@
 Revision history for Test-Version
 
+1.003000  2014-09-05
+	- skip packages unindexable by pause GH #4 (ETHER)
+
 1.002004  2013-11-21
 	- fix bugs in argument handling
 	- fix whitespace

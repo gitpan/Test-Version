@@ -2,7 +2,7 @@ NAME
     Test::Version - Check to see that version's in modules are sane
 
 VERSION
-    version 1.002004
+    version 1.003000
 
 SYNOPSIS
             use Test::More;
@@ -78,6 +78,12 @@ CONFIGURATION AND ENVIRONMENT
     this allows enabling of versions "is_strict" checks to ensure that your
     version is strict.
 
+  ignore_unindexable
+            use Test::Version { ignore_unindexable => 0};
+
+    if you have at least Module::Metadata v1.000020 Test::Version will by
+    default skip any files not considered is_indexable
+
 SEE ALSO
     The goal is to have the functionality of all of these.
 
@@ -105,7 +111,7 @@ AUTHOR
     Caleb Cushing <xenoterracide@gmail.com>
 
 COPYRIGHT AND LICENSE
-    This software is Copyright (c) 2013 by Caleb Cushing.
+    This software is Copyright (c) 2014 by Caleb Cushing.
 
     This is free software, licensed under:
 
