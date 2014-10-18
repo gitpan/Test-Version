@@ -4,7 +4,7 @@
       "Caleb Cushing <xenoterracide@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142060",
+   "generated_by" : "Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142690",
    "license" : [
       "artistic_2"
    ],
@@ -65,7 +65,7 @@
    "provides" : {
       "Test::Version" : {
          "file" : "lib/Test/Version.pm",
-         "version" : "1.003001"
+         "version" : "1.004000"
       }
    },
    "release_status" : "stable",
@@ -80,8 +80,9 @@
          "web" : "https://github.com/xenoterracide/test-version"
       }
    },
-   "version" : "1.003001",
+   "version" : "1.004000",
    "x_contributors" : [
+      "Gabor Szabo <gabor@szabgab.com>",
       "Graham Ollis <perl@wdlabs.com>",
       "Michael G. Schwern <schwern@pobox.com>",
       "Mike Doherty <doherty@cs.dal.ca>",

@@ -7,7 +7,14 @@ META.json
 META.yml
 Makefile.PL
 README
+corpus/consistent/Bar.pm
+corpus/consistent/Foo.pm
 corpus/fail/FooBarBaz.pm
+corpus/inconsistent/Bar.pm
+corpus/inconsistent/Foo.pm
+corpus/missing/Bar.pm
+corpus/missing/Baz.pm
+corpus/missing/Foo.pm
 corpus/not_strict/NotStrict.pm
 corpus/noversion/FooBar.pm
 corpus/pass/Foo.pm
@@ -19,8 +26,12 @@ t/00-report-prereqs.t
 t/all-has-version-false.t
 t/all.t
 t/at-least-one-version.t
+t/consistent.t
 t/fail.t
 t/file-not-defined.t
+t/inconsistent.t
+t/missing-has-version.t
+t/missing.t
 t/no-file.t
 t/noversion.t
 t/pass.t

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = '1.003001'; # VERSION
+our $VERSION = '1.004000'; # VERSION
 
 use parent 'Exporter';
 use Test::Builder;
@@ -38,6 +38,11 @@ sub import { ## no critic qw( Subroutines::RequireArgUnpacking Subroutines::Requ
 		:                                       1
 		;
 
+	$cfg->{consistent}
+		= defined $cfg->{consistent}           ? $cfg->{consistent}
+		:                                       0
+		;
+
 	my $mmv = version->parse( $Module::Metadata::VERSION );
 	my $rec = version->parse( '1.000020'  );
 	if ( $mmv >= $rec && ! defined $cfg->{ignore_unindexable} ) {
@@ -48,6 +53,8 @@ sub import { ## no critic qw( Subroutines::RequireArgUnpacking Subroutines::Requ
 }
 
 my $version_counter = 0;
+my $version_number;
+my $consistent = 1;
 
 my $test = Test::Builder->new;
 
@@ -67,6 +74,10 @@ sub version_ok {
 	}
 	my $version = $info->version;
 
+	if (not defined $version) {
+		$consistent = 0;
+	}
+
 	if ( not $version and not $cfg->{has_version} ) {
 		$test->skip( 'No version was found in "'
 			. $file
@@ -83,6 +94,13 @@ sub version_ok {
 		$test->ok( 0 , $name );
 		$test->diag( "No version was found in '$file'." );
 		return 0;
+	}
+
+	unless (defined $version_number) {
+		$version_number = $version;
+	}
+	if ($version ne $version_number) {
+		$consistent = 0;
 	}
 
 	unless ( is_lax( $version ) ) {
@@ -125,6 +143,12 @@ sub version_all_ok {
 		version_ok( $file );
 	}
 
+	if ($cfg->{consistent} and not $consistent) {
+		$test->ok( 0, $name );
+		$test->diag('The version numbers in this distribution are not the same');
+		return;
+	}
+
 	# has at least 1 version in the dist
 	if ( not $cfg->{has_version} and $version_counter < 1 ) {
 		$test->ok( 0, $name );
@@ -155,7 +179,7 @@ Test::Version - Check to see that version's in modules are sane
 
 =head1 VERSION
 
-version 1.003001
+version 1.004000
 
 =head1 SYNOPSIS
 
@@ -163,6 +187,7 @@ version 1.003001
 	use Test::Version 1.001001 qw( version_all_ok ), {
 			is_strict   => 0,
 			has_version => 1,
+			consistent  => 1,
 		};
 
 	# test blib or lib by default
@@ -245,6 +270,12 @@ really doesn't make sense to use with just L<version_ok|/version_ok>
 this allows enabling of L<version>s C<is_strict> checks to ensure that your
 version is strict.
 
+=head2 consistent
+
+	use Test::Version { consistent => 1 };
+
+Check if every module has the same version number.
+
 =head2 ignore_unindexable
 
 	use Test::Version { ignore_unindexable => 0};
@@ -277,9 +308,13 @@ feature.
 
 =head1 CONTRIBUTORS
 
-=for stopwords Graham Ollis Michael G. Schwern Mike Doherty particle
+=for stopwords Gabor Szabo Graham Ollis Michael G. Schwern Mike Doherty particle
 
 =over 4
+
+=item *
+
+Gabor Szabo <gabor@szabgab.com>
 
 =item *
 
