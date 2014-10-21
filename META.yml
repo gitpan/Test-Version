@@ -25,7 +25,7 @@ no_index:
 provides:
   Test::Version:
     file: lib/Test/Version.pm
-    version: '1.004000'
+    version: '1.004001'
 requires:
   Carp: '0'
   Exporter: '0'
@@ -42,7 +42,7 @@ resources:
   bugtracker: https://github.com/xenoterracide/test-version/issues
   homepage: https://metacpan.org/dist/Test-Version
   repository: git://github.com/xenoterracide/test-version.git
-version: '1.004000'
+version: '1.004001'
 x_contributors:
   - 'Gabor Szabo <gabor@szabgab.com>'
   - 'Graham Ollis <perl@wdlabs.com>'

@@ -65,7 +65,7 @@
    "provides" : {
       "Test::Version" : {
          "file" : "lib/Test/Version.pm",
-         "version" : "1.004000"
+         "version" : "1.004001"
       }
    },
    "release_status" : "stable",
@@ -80,7 +80,7 @@
          "web" : "https://github.com/xenoterracide/test-version"
       }
    },
-   "version" : "1.004000",
+   "version" : "1.004001",
    "x_contributors" : [
       "Gabor Szabo <gabor@szabgab.com>",
       "Graham Ollis <perl@wdlabs.com>",
